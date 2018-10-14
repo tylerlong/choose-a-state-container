@@ -1,4 +1,5 @@
 /* global SubX, ReactSubX, ReactDOM */
+// store
 const store = SubX.create({
   number: 0,
   decrease () {
@@ -9,6 +10,7 @@ const store = SubX.create({
   }
 })
 
+// component
 class App extends ReactSubX.Component {
   render () {
     const store = this.props.store
@@ -20,4 +22,5 @@ class App extends ReactSubX.Component {
   }
 }
 
+// render
 ReactDOM.render(<App store={store} />, document.getElementById('container'))
