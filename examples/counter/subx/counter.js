@@ -1,4 +1,5 @@
-const store = SubX.default.create({
+/* global SubX, ReactSubX, ReactDOM */
+const store = SubX.create({
   number: 0,
   decrease () {
     this.number -= 1
@@ -19,4 +20,4 @@ class App extends ReactSubX.Component {
   }
 }
 
-ReactDOM.render(<App store={store}/>, document.getElementById('container'))
+ReactDOM.render(<App store={store} />, document.getElementById('container'))
