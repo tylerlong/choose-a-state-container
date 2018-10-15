@@ -88,7 +88,7 @@ class App extends ReactSubX.Component {
       <footer className='info'>
         <p>Double-click to edit a todo</p>
         <p>Written by <a href='https://github.com/tylerlong'>Tyler Long</a></p>
-        <p><a href='https://github.com/tylerlong/subx-demo-todomvc'>Source code</a> available</p>
+        <p><a href='https://github.com/tylerlong/choose-a-state-container/tree/master/examples/todomvc/subx'>Source code</a> available</p>
       </footer>
     </Fragment>
   }
