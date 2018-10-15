@@ -156,6 +156,7 @@ class Footer extends ReactSubX.Component {
   }
 }
 
+// router
 const router = new Router({
   '/all': () => { store.visibility = 'all' },
   '/active': () => { store.visibility = 'active' },
@@ -163,14 +164,15 @@ const router = new Router({
 })
 router.init()
 
+// localStorage
 store.$.pipe(
   filter(event => R.startsWith(['todos'], event.path)),
   debounceTime(100)
 ).subscribe(event => window.localStorage.setItem('todomvc-subx-todos', JSON.stringify(store.todos)))
-
 const savedTodos = window.localStorage.getItem('todomvc-subx-todos')
 if (savedTodos) {
   store.todos = JSON.parse(savedTodos)
 }
 
+// render
 ReactDOM.render(<App store={store} />, document.getElementById('container'))
