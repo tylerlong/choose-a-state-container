@@ -24,7 +24,7 @@ const increase = () => ({ type: INCREMENT })
 const decrease = () => ({ type: DECREMENT })
 
 // component
-class App extends React.Component {
+class _App extends React.Component {
   render () {
     const { number, increase, decrease } = this.props
     return <div>
@@ -34,14 +34,12 @@ class App extends React.Component {
     </div>
   }
 }
-
-// connect
-const ConnectedApp = ReactRedux.connect(
+const App = ReactRedux.connect(
   state => ({ number: state.number }),
   { increase, decrease }
-)(App)
+)(_App)
 
 // render
 ReactDOM.render(<Provider store={store}>
-  <ConnectedApp />
+  <App />
 </Provider>, document.getElementById('container'))
