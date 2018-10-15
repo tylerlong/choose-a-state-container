@@ -50,101 +50,70 @@ const initialState = {
   todos: [],
   visibility: 'all'
 }
-const reducer = (state = initialState, action) => {
+const visibilityReducer = (visibility = initialState.visibility, action) => {
+  switch (action.type) {
+    case SET_VISIBILITY:
+      return action.visibility
+    default:
+      return visibility
+  }
+}
+const todosReducer = (todos = initialState.todos, action) => {
   switch (action.type) {
     case TOGGLE_ALL:
-      if (areAllDoneSelector(state)) {
-        return {
-          ...state,
-          todos: R.map(R.assoc('completed', false), state.todos)
-        }
+      if (areAllDoneSelector({ todos })) {
+        return R.map(R.assoc('completed', false), todos)
       } else {
-        return {
-          ...state,
-          todos: R.map(R.assoc('completed', true), state.todos)
-        }
+        return R.map(R.assoc('completed', true), todos)
       }
     case ADD:
       const title = action.title.trim()
       if (title !== '') {
-        return {
-          ...state,
-          todos: [
-            ...state.todos,
-            { id: uuid(), title, completed: false }
-          ]
-        }
+        return [...todos, { id: uuid(), title, completed: false }]
       }
-      return state
+      return todos
     case REMOVE:
-      const index = R.findIndex(t => t.id === action.id, state.todos)
-      return {
-        ...state,
-        todos: R.remove(index, 1, state.todos)
-      }
+      const index = R.findIndex(t => t.id === action.id, todos)
+      return R.remove(index, 1, todos)
     case EDIT:
-      const index2 = R.findIndex(t => t.id === action.id, state.todos)
-      const todo2 = state.todos[index2]
-      return {
-        ...state,
-        todos: R.set(R.lensPath([index2]), { ...todo2, cache: todo2.title }, state.todos)
-      }
+      const index2 = R.findIndex(t => t.id === action.id, todos)
+      const todo2 = todos[index2]
+      return R.set(R.lensPath([index2]), { ...todo2, cache: todo2.title }, todos)
     case DONE_EDIT:
-      const index3 = R.findIndex(t => t.id === action.id, state.todos)
-      const todo3 = state.todos[index3]
+      const index3 = R.findIndex(t => t.id === action.id, todos)
+      const todo3 = todos[index3]
       if (todo3.title.trim() === '') {
-        return { // remove
-          ...state,
-          todos: R.remove(index3, 1, state.todos)
-        }
+        return R.remove(index3, 1, todos)
       } else {
-        return {
-          ...state,
-          todos: R.set(R.lensPath([index3]), R.dissoc('cache', todo3), state.todos)
-        }
+        return R.set(R.lensPath([index3]), R.dissoc('cache', todo3), todos)
       }
     case CANCEL_EDIT:
-      const index4 = R.findIndex(t => t.id === action.id, state.todos)
-      const todo4 = state.todos[index4]
-      let todos = R.set(R.lensPath([index4]), { ...todo4, title: todo4.cache }, state.todos)
-      todos = R.set(R.lensPath([index4]), R.dissoc('cache', todo4), state.todos)
-      return {
-        ...state,
-        todos
-      }
+      const index4 = R.findIndex(t => t.id === action.id, todos)
+      const todo4 = todos[index4]
+      return R.set(R.lensPath([index4]), R.pipe(
+        R.assoc('title', todo4.cache),
+        R.dissoc('cache')
+      )(todo4))(todos)
     case CLEAR_COMPLETED:
-      return {
-        ...state,
-        todos: R.filter(todo => !todo.completed, state.todos)
-      }
+      return R.filter(todo => !todo.completed, todos)
     case SET_TODOS:
-      return {
-        ...state,
-        todos: action.todos
-      }
-    case SET_VISIBILITY:
-      return {
-        ...state,
-        visibility: action.visibility
-      }
+      return action.todos
     case SET_COMPLETED:
-      const index5 = R.findIndex(t => t.id === action.id, state.todos)
-      const todo5 = state.todos[index5]
-      return {
-        ...state,
-        todos: R.set(R.lensPath([index5]), { ...todo5, completed: action.completed }, state.todos)
-      }
+      const index5 = R.findIndex(t => t.id === action.id, todos)
+      const todo5 = todos[index5]
+      return R.set(R.lensPath([index5]), { ...todo5, completed: action.completed }, todos)
     case SET_TITLE:
-      const index6 = R.findIndex(t => t.id === action.id, state.todos)
-      const todo6 = state.todos[index6]
-      return {
-        ...state,
-        todos: R.set(R.lensPath([index6]), { ...todo6, title: action.title }, state.todos)
-      }
+      const index6 = R.findIndex(t => t.id === action.id, todos)
+      const todo6 = todos[index6]
+      return R.set(R.lensPath([index6]), { ...todo6, title: action.title }, todos)
     default:
-      return state
+      return todos
   }
 }
+const reducer = Redux.combineReducers({
+  visibility: visibilityReducer,
+  todos: todosReducer
+})
 
 // store
 const store = Redux.createStore(reducer)
