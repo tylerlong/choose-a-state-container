@@ -11,7 +11,7 @@ const store = mobx.observable({
 })
 
 // component
-class App extends React.Component {
+class _App extends React.Component {
   render () {
     const store = this.props.store
     return <div>
@@ -21,9 +21,7 @@ class App extends React.Component {
     </div>
   }
 }
-
-// observe
-const ObservedApp = mobxReact.observer(App)
+const App = mobxReact.observer(_App)
 
 // render
-ReactDOM.render(<ObservedApp store={store} />, document.getElementById('container'))
+ReactDOM.render(<App store={store} />, document.getElementById('container'))
