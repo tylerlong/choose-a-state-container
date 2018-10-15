@@ -170,12 +170,12 @@ class _App extends React.Component {
       <section className='todoapp'>
         <header className='header'>
           <h1>todos</h1>
-          <input className='new-todo' autoFocus autoComplete='off' placeholder='What needs to be done?' onKeyUp={e => {
+          <input className='new-todo' autoFocus autoComplete='off' onKeyUp={e => {
             if (e.key === 'Enter') {
               add(e.target.value)
               e.target.value = ''
             }
-          }} />
+          }} placeholder='What needs to be done?' />
         </header>
         <Body />
         <Footer />
@@ -183,7 +183,9 @@ class _App extends React.Component {
       <footer className='info'>
         <p>Double-click to edit a todo</p>
         <p>Written by <a href='https://github.com/tylerlong'>Tyler Long</a></p>
-        <p><a href='https://github.com/tylerlong/choose-a-state-container/tree/master/examples/todomvc/redux'>Source code</a> available</p>
+        <p><a href='https://github.com/tylerlong/choose-a-state-container/tree/master/examples/todomvc/redux'>
+          Source code
+        </a> available</p>
       </footer>
     </Fragment>
   }

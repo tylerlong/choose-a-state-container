@@ -40,6 +40,4 @@ const App = ReactRedux.connect(
 )(_App)
 
 // render
-ReactDOM.render(<Provider store={store}>
-  <App />
-</Provider>, document.getElementById('container'))
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('container'))
