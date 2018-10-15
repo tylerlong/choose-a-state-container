@@ -8,10 +8,12 @@ class Todo {
   id = uuid()
   title = 'world'
   completed = false
+  cache = undefined
 }
 decorate(Todo, {
   title: observable,
-  completed: observable
+  completed: observable,
+  cache: observable
 })
 
 // store
@@ -62,7 +64,7 @@ class Store {
     todo.cache = todo.title
   }
   doneEdit (todo) {
-    delete todo.cache
+    todo.cache = undefined
     todo.title = todo.title.trim()
     if (todo.title === '') {
       this.remove(todo)
@@ -70,7 +72,7 @@ class Store {
   }
   cancelEdit (todo) {
     todo.title = todo.cache
-    delete todo.cache
+    todo.cache = undefined
   }
   clearCompleted () {
     this.todos = this.todos.filter(todo => !todo.completed)
