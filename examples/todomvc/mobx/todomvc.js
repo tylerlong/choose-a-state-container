@@ -207,13 +207,13 @@ const router = new Router({
 router.init()
 
 // localStorage
-autorun(() => {
-  window.localStorage.setItem('todomvc-mobx-todos', JSON.stringify(store.todos))
-}, { delay: 100 })
 const savedTodos = window.localStorage.getItem('todomvc-mobx-todos')
 if (savedTodos) {
   store.todos = JSON.parse(savedTodos)
 }
+autorun(() => {
+  window.localStorage.setItem('todomvc-mobx-todos', JSON.stringify(store.todos))
+}, { delay: 100 })
 
 // render
 ReactDOM.render(<App store={store} />, document.getElementById('container'))

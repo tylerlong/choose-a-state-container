@@ -174,14 +174,14 @@ const router = new Router({
 router.init()
 
 // localStorage
-store.$.pipe(
-  filter(event => R.startsWith(['todos'], event.path)),
-  debounceTime(100)
-).subscribe(event => window.localStorage.setItem('todomvc-subx-todos', JSON.stringify(store.todos)))
 const savedTodos = window.localStorage.getItem('todomvc-subx-todos')
 if (savedTodos) {
   store.todos = JSON.parse(savedTodos)
 }
+store.$.pipe(
+  filter(event => R.startsWith(['todos'], event.path)),
+  debounceTime(100)
+).subscribe(event => window.localStorage.setItem('todomvc-subx-todos', JSON.stringify(store.todos)))
 
 // render
 ReactDOM.render(<App store={store} />, document.getElementById('container'))

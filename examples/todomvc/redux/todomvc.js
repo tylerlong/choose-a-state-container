@@ -260,16 +260,16 @@ const router = new Router({
 router.init()
 
 // localStorage
-let saveToLocalStorage = () => {
-  window.localStorage.setItem('todomvc-redux-todos', JSON.stringify(todosSelector(store.getState())))
-}
-saveToLocalStorage = _.debounce(saveToLocalStorage, 100)
-store.subscribe(() => saveToLocalStorage())
 const savedTodos = window.localStorage.getItem('todomvc-redux-todos')
 if (savedTodos) {
   const todos = JSON.parse(savedTodos)
   store.dispatch(setTodos(todos))
 }
+let saveToLocalStorage = () => {
+  window.localStorage.setItem('todomvc-redux-todos', JSON.stringify(todosSelector(store.getState())))
+}
+saveToLocalStorage = _.debounce(saveToLocalStorage, 100)
+store.subscribe(() => saveToLocalStorage())
 
 // render
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('container'))
