@@ -1,5 +1,5 @@
 /* global React, SubX, R, uuid, ReactSubX, ReactDOM, pluralize, classNames, Router, rxjs */
-const { filter, debounceTime } = rxjs.operators
+const { debounceTime } = rxjs.operators
 const { Fragment } = React
 
 // model
@@ -178,10 +178,9 @@ const savedTodos = window.localStorage.getItem('todomvc-subx-todos')
 if (savedTodos) {
   store.todos = JSON.parse(savedTodos)
 }
-store.$.pipe(
-  filter(event => R.startsWith(['todos'], event.path)),
-  debounceTime(100)
-).subscribe(event => window.localStorage.setItem('todomvc-subx-todos', JSON.stringify(store.todos)))
+SubX.autoRun(store, () => {
+  window.localStorage.setItem('todomvc-subx-todos', JSON.stringify(store.todos))
+}, debounceTime(1000))
 
 // render
 ReactDOM.render(<App store={store} />, document.getElementById('container'))
