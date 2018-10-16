@@ -213,7 +213,7 @@ if (savedTodos) {
 }
 autorun(() => {
   window.localStorage.setItem('todomvc-mobx-todos', JSON.stringify(store.todos))
-}, { delay: 1000 })
+}, { delay: 1000 }) // delay is throttle, don't know how to debounce using MobX
 
 // render
 ReactDOM.render(<App store={store} />, document.getElementById('container'))
