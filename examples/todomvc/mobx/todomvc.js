@@ -213,7 +213,7 @@ if (savedTodos) {
 }
 autorun(() => {
   window.localStorage.setItem('todomvc-mobx-todos', JSON.stringify(store.todos))
-}, { delay: 100 })
+}, { delay: 1000 })
 
 // render
 ReactDOM.render(<App store={store} />, document.getElementById('container'))

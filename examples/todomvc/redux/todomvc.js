@@ -268,7 +268,7 @@ if (savedTodos) {
 let saveToLocalStorage = () => {
   window.localStorage.setItem('todomvc-redux-todos', JSON.stringify(todosSelector(store.getState())))
 }
-saveToLocalStorage = _.debounce(saveToLocalStorage, 100)
+saveToLocalStorage = _.debounce(saveToLocalStorage, 1000)
 store.subscribe(() => saveToLocalStorage())
 
 // render
