@@ -8,22 +8,13 @@ const suite = new Benchmark.Suite()
 
 suite
   .add('subx', () => {
-    const store = subxStore
-    store.add('todo 1')
-    store.add('todo 2')
-    store.add('todo 3')
+    subxStore.add('todo 1')
   })
   .add('redux', () => {
-    const store = reduxStore
-    store.dispatch(add('todo 1'))
-    store.dispatch(add('todo 2'))
-    store.dispatch(add('todo 3'))
+    reduxStore.dispatch(add('todo 1'))
   })
   .add('mobx', () => {
-    const store = mobxStore
-    store.add('todo 1')
-    store.add('todo 2')
-    store.add('todo 3')
+    mobxStore.add('todo 1')
   })
   .on('cycle', function (event) {
     console.log(String(event.target))
