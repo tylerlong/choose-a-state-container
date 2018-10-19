@@ -5,7 +5,7 @@ import { createSelector } from 'reselect'
 let count = 0
 const aSelector = state => state.a
 const bSelector = state => state.b
-const addSelector = createSelector(
+const sumSelector = createSelector(
   aSelector, bSelector,
   (a, b) => {
     count += 1
@@ -29,14 +29,14 @@ const changeA = a => ({ type: CHANGE_A, a })
 
 describe('Cache - Redux', () => {
   test('default', () => {
-    expect(addSelector(store.getState())).toBe(3)
-    expect(addSelector(store.getState())).toBe(3)
+    expect(sumSelector(store.getState())).toBe(3)
+    expect(sumSelector(store.getState())).toBe(3)
     expect(count).toBe(1)
     store.dispatch(changeA(2))
     store.dispatch(changeA(3))
     store.dispatch(changeA(4))
-    expect(addSelector(store.getState())).toBe(6)
-    expect(addSelector(store.getState())).toBe(6)
-    expect(count).toBe(2) // `add` only executes twice because of cache
+    expect(sumSelector(store.getState())).toBe(6)
+    expect(sumSelector(store.getState())).toBe(6)
+    expect(count).toBe(2) // `sum` only executes twice because of cache
   })
 })
