@@ -3,6 +3,11 @@
 Help you to choose a state container among SubX, Redux & MobX.
 
 
+## Disclaimer
+
+I am the author of [SubX](https://github.com/tylerlong/subx): next generation state container.
+
+
 ## Sample Apps
 
 #### [Counter](examples/counter)
