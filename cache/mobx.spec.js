@@ -7,10 +7,7 @@ const calculator = observable.object({
   b: 2,
   get add () {
     count += 1
-    if (this.a && this.b) {
-      return this.a + this.b
-    }
-    return NaN
+    return this.a + this.b
   }
 })
 
