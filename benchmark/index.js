@@ -1,4 +1,6 @@
 import Benchmark from 'benchmark'
+import uuid from 'uuid/v4'
+import * as R from 'ramda'
 
 import subxStore from './subx'
 import reduxStore, { add } from './redux'
@@ -7,14 +9,14 @@ import mobxStore from './mobx'
 const suite = new Benchmark.Suite()
 
 suite
-  .add('subx', () => {
-    subxStore.add('todo 1')
+  .add('SubX', () => {
+    R.range(0, 100).forEach(i => subxStore.add(`todo ${uuid()}`))
   })
-  .add('redux', () => {
-    reduxStore.dispatch(add('todo 1'))
+  .add('Redux', () => {
+    R.range(0, 100).forEach(i => reduxStore.dispatch(add(`todo ${uuid()}`)))
   })
-  .add('mobx', () => {
-    mobxStore.add('todo 1')
+  .add('MobX', () => {
+    R.range(0, 100).forEach(i => mobxStore.add(`todo ${uuid()}`))
   })
   .on('cycle', function (event) {
     console.log(String(event.target))
