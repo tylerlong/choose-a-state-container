@@ -6,7 +6,7 @@ const { observer } = mobxReact
 // model
 class Todo {
   id = uuid()
-  title = 'world'
+  title = ''
   completed = false
   cache = undefined
 }
