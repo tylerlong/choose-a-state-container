@@ -2,9 +2,9 @@ import Benchmark from 'benchmark'
 import uuid from 'uuid/v4'
 import * as R from 'ramda'
 
-import subxStore from './subx'
-import reduxStore, { add } from './redux'
-import mobxStore from './mobx'
+import subxStore from '../todomvc/subx'
+import reduxStore, { add } from '../todomvc/redux'
+import mobxStore from '../todomvc/mobx'
 
 const suite = new Benchmark.Suite()
 

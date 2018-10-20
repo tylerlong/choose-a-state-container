@@ -2,7 +2,8 @@
   "license": "MIT",
   "scripts": {
     "test": "jest -w 1",
-    "bench": "node -r @babel/register benchmark/index.js"
+    "bench": "node -r @babel/register benchmark/without-react/index.js",
+    "bench-react": "node -r @babel/register benchmark/with-react/index.js"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
