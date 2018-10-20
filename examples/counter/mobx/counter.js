@@ -1,6 +1,6 @@
 /* global React, mobx, mobxReact, ReactDOM */
 // store
-const store = mobx.observable({
+const store = mobx.observable.object({
   number: 0,
   decrease () {
     this.number -= 1
