@@ -22,7 +22,7 @@ export const visibleTodosSelector = createSelector(
     }
   }
 )
-const areAllDoneSelector = createSelector(
+export const areAllDoneSelector = createSelector(
   todosSelector,
   todos => R.all(todo => todo.completed, todos)
 )
