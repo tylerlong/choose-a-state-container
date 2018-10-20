@@ -1,5 +1,5 @@
 import uuid from 'uuid/v4'
-import { decorate, observable, action, computed, autorun } from 'mobx'
+import { decorate, observable, action, computed } from 'mobx'
 import * as R from 'ramda'
 
 // model
@@ -94,15 +94,5 @@ decorate(Store, {
   clearCompleted: action
 })
 const store = new Store()
-
-// why autorun?
-// Because we want to benchamark with cache
-// Ref: https://github.com/mobxjs/mobx/issues/1093
-// SubX & Redux both have cache enabled, it's unfair for them if we don't turn on cache for MobX
-autorun(() => store.visibleTodos)
-autorun(() => store && store.length)
-autorun(() => store.areAllDone)
-autorun(() => store.leftCount)
-autorun(() => store.doneCount)
 
 export default store
