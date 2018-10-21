@@ -1,5 +1,5 @@
 import Benchmark from 'benchmark'
-import uuid from 'uuid/v4'
+import uuid from 'uuid/v1'
 import * as R from 'ramda'
 
 import { resetStores } from './shared'

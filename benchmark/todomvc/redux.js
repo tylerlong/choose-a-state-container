@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 import * as R from 'ramda'
 import { combineReducers, createStore } from 'redux'
-import uuid from 'uuid/v4'
+import uuid from 'uuid/v1'
 
 // selectors
 const todosSelector = state => state.todos

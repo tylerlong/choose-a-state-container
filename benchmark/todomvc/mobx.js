@@ -1,4 +1,4 @@
-import uuid from 'uuid/v4'
+import uuid from 'uuid/v1'
 import { decorate, observable, action, computed } from 'mobx'
 import * as R from 'ramda'
 
