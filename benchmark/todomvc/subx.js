@@ -1,6 +1,8 @@
 import SubX from 'subx'
-import uuid from 'uuid/v1'
 import * as R from 'ramda'
+import hyperid from 'hyperid'
+
+const uuid = hyperid()
 
 // model
 const Todo = new SubX({ title: '', completed: false })

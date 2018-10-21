@@ -1,11 +1,13 @@
 import Benchmark from 'benchmark'
-import uuid from 'uuid/v1'
 import * as R from 'ramda'
+import hyperid from 'hyperid'
 
 import { resetStores } from './shared'
 import subxStore from '../todomvc/subx'
 import reduxStore, { add, setCompleted, setTitle, remove } from '../todomvc/redux'
 import mobxStore from '../todomvc/mobx'
+
+const uuid = hyperid()
 
 // benchmark adding todos
 resetStores()

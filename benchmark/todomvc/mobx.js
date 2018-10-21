@@ -1,6 +1,8 @@
-import uuid from 'uuid/v1'
 import { decorate, observable, action, computed } from 'mobx'
 import * as R from 'ramda'
+import hyperid from 'hyperid'
+
+const uuid = hyperid()
 
 // model
 class Todo {
