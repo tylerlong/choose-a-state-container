@@ -1,13 +1,13 @@
 import Benchmark from 'benchmark'
 import * as R from 'ramda'
-import hyperid from 'hyperid'
 
 import { resetStores } from './shared'
 import subxStore from '../todomvc/subx'
 import reduxStore, { add, setCompleted, setTitle, remove } from '../todomvc/redux'
 import mobxStore from '../todomvc/mobx'
 
-const uuid = hyperid()
+let id = 0
+const uuid = () => ++id
 
 // benchmark adding todos
 resetStores()
@@ -107,3 +107,17 @@ suite3
     console.log('Fastest is ' + this.filter('fastest').map('name'))
   })
   .run()
+/*
+SubX adding todos x 700 ops/sec ±13.36% (79 runs sampled)
+Redux adding todos x 74.53 ops/sec ±39.05% (12 runs sampled)
+MobX adding todos x 14.11 ops/sec ±30.93% (14 runs sampled)
+Fastest is SubX adding todos
+SubX editing todos x 308 ops/sec ±1.66% (85 runs sampled)
+Redux editing todos x 16.53 ops/sec ±1.49% (45 runs sampled)
+MobX editing todos x 13.43 ops/sec ±2.01% (37 runs sampled)
+Fastest is SubX editing todos
+SubX deleting & re-adding todos x 129 ops/sec ±1.17% (81 runs sampled)
+Redux deleting & re-adding todos x 3,499 ops/sec ±1.52% (92 runs sampled)
+MobX deleting & re-adding todos x 260 ops/sec ±1.42% (81 runs sampled)
+Fastest is Redux deleting & re-adding todos
+*/

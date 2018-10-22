@@ -1,8 +1,8 @@
 import Benchmark from 'benchmark'
 import * as R from 'ramda'
-import hyperid from 'hyperid'
 
-const uuid = hyperid()
+let id = 0
+const uuid = () => ++id
 
 let a = []
 const suite1 = new Benchmark.Suite()
