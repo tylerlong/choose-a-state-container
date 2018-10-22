@@ -104,10 +104,12 @@ const todosReducer = (todos = initialState.todos, action) => {
     case SET_COMPLETED:
       const index5 = R.findIndex(t => t.id === action.id, todos)
       const todo5 = todos[index5]
+      // return [...todos.slice(0, index5), { ...todo5, completed: action.completed }, ...todos.slice(index5)]
       return R.set(R.lensPath([index5]), { ...todo5, completed: action.completed }, todos)
     case SET_TITLE:
       const index6 = R.findIndex(t => t.id === action.id, todos)
       const todo6 = todos[index6]
+      // return [...todos.slice(0, index6), { ...todo6, title: action.title }, ...todos.slice(index6)]
       return R.set(R.lensPath([index6]), { ...todo6, title: action.title }, todos)
     default:
       return todos
