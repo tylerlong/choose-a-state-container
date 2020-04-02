@@ -11,6 +11,7 @@ describe('MobX decorator', () => {
         count += 1
         return this.a + this.b
       }
+
       @action changeA (a) {
         this.a = a
       }
@@ -35,6 +36,7 @@ describe('MobX decorator', () => {
         count += 1
         return this.a + this.b
       }
+
       changeA (a) {
         this.a = a
       }
@@ -65,6 +67,7 @@ describe('MobX decorator', () => {
         count += 1
         return this.a + this.b
       }
+
       @action changeA (a) {
         this.a = a
       }
@@ -88,6 +91,7 @@ describe('MobX decorator', () => {
         count += 1
         return this.a + this.b
       }
+
       changeA (a) {
         this.a = a
       }

@@ -1,5 +1,4 @@
 /* global uuid, mobx, R, React, ReactDOM, classNames, pluralize, Router, mobxReact */
-const { Fragment } = React
 const { observable, autorun } = mobx
 const { observer } = mobxReact
 
@@ -71,28 +70,34 @@ const store = observable.object({
 class _App extends React.Component {
   render () {
     const store = this.props.store
-    return <Fragment>
-      <section className='todoapp'>
-        <header className='header'>
-          <h1>todos</h1>
-          <input className='new-todo' autoFocus autoComplete='off' onKeyUp={e => {
-            if (e.key === 'Enter') {
-              store.add(e.target.value)
-              e.target.value = ''
-            }
-          }} placeholder='What needs to be done?' />
-        </header>
-        <Body store={store} />
-        <Footer store={store} />
-      </section>
-      <footer className='info'>
-        <p>Double-click to edit a todo</p>
-        <p>Written by <a href='https://github.com/tylerlong'>Tyler Long</a></p>
-        <p><a href='https://github.com/tylerlong/choose-a-state-container/tree/master/examples/todomvc/mobx'>
-          Source code
-        </a> available</p>
-      </footer>
-    </Fragment>
+    return (
+      <>
+        <section className='todoapp'>
+          <header className='header'>
+            <h1>todos</h1>
+            <input
+              className='new-todo' autoFocus autoComplete='off' onKeyUp={e => {
+                if (e.key === 'Enter') {
+                  store.add(e.target.value)
+                  e.target.value = ''
+                }
+              }} placeholder='What needs to be done?'
+            />
+          </header>
+          <Body store={store} />
+          <Footer store={store} />
+        </section>
+        <footer className='info'>
+          <p>Double-click to edit a todo</p>
+          <p>Written by <a href='https://github.com/tylerlong'>Tyler Long</a></p>
+          <p>
+            <a href='https://github.com/tylerlong/choose-a-state-container/tree/master/examples/todomvc/mobx'>
+              Source code
+            </a> available
+          </p>
+        </footer>
+      </>
+    )
   }
 }
 const App = observer(_App)
@@ -104,14 +109,18 @@ class _Body extends React.Component {
     if (store.length === 0) {
       return ''
     }
-    return <section className='main'>
-      <input id='toggle-all' className='toggle-all' type='checkbox'
-        checked={store.areAllDone} onChange={e => store.toggleAll()} />
-      <label htmlFor='toggle-all'>Mark all as complete</label>
-      <ul className='todo-list'>
-        {store.visibleTodos.map(todo => <TodoItem store={store} todo={todo} key={todo.id} />)}
-      </ul>
-    </section>
+    return (
+      <section className='main'>
+        <input
+          id='toggle-all' className='toggle-all' type='checkbox'
+          checked={store.areAllDone} onChange={e => store.toggleAll()}
+        />
+        <label htmlFor='toggle-all'>Mark all as complete</label>
+        <ul className='todo-list'>
+          {store.visibleTodos.map(todo => <TodoItem store={store} todo={todo} key={todo.id} />)}
+        </ul>
+      </section>
+    )
   }
 }
 const Body = observer(_Body)
@@ -120,27 +129,35 @@ const Body = observer(_Body)
 class _TodoItem extends React.Component {
   render () {
     const { store, todo } = this.props
-    return <li className={classNames('todo', { completed: todo.completed, editing: todo.cache })}>
-      <div className='view'>
-        <input className='toggle' type='checkbox' checked={todo.completed}
-          onChange={e => { todo.completed = e.target.checked }} />
-        <label onDoubleClick={e => {
-          store.edit(todo)
-          setTimeout(() => ReactDOM.findDOMNode(this.refs.editField).focus(), 10)
-        }}>{todo.title}</label>
-        <button className='destroy' onClick={e => store.remove(todo)} />
-      </div>
-      <input ref='editField' className='edit' type='text' value={todo.title}
-        onChange={e => { todo.title = e.target.value }}
-        onKeyUp={e => {
-          if (e.key === 'Enter') {
-            store.doneEdit(todo)
-          } else if (e.key === 'Escape') {
-            store.cancelEdit(todo)
-          }
-        }}
-        onBlur={e => store.doneEdit(todo)} />
-    </li>
+    return (
+      <li className={classNames('todo', { completed: todo.completed, editing: todo.cache })}>
+        <div className='view'>
+          <input
+            className='toggle' type='checkbox' checked={todo.completed}
+            onChange={e => { todo.completed = e.target.checked }}
+          />
+          <label onDoubleClick={e => {
+            store.edit(todo)
+            setTimeout(() => ReactDOM.findDOMNode(this.refs.editField).focus(), 10)
+          }}
+          >{todo.title}
+          </label>
+          <button className='destroy' onClick={e => store.remove(todo)} />
+        </div>
+        <input
+          ref='editField' className='edit' type='text' value={todo.title}
+          onChange={e => { todo.title = e.target.value }}
+          onKeyUp={e => {
+            if (e.key === 'Enter') {
+              store.doneEdit(todo)
+            } else if (e.key === 'Escape') {
+              store.cancelEdit(todo)
+            }
+          }}
+          onBlur={e => store.doneEdit(todo)}
+        />
+      </li>
+    )
   }
 }
 const TodoItem = observer(_TodoItem)
@@ -152,19 +169,21 @@ class _Footer extends React.Component {
     if (store.length === 0) {
       return ''
     }
-    return <footer className='footer'>
-      <span className='todo-count'>
-        <strong>{pluralize('item', store.leftCount, true)}</strong> left
-      </span>
-      <ul className='filters'>
-        <li><a href='#/all' className={classNames({ selected: store.visibility === 'all' })}>All</a></li>
-        <li><a href='#/active' className={classNames({ selected: store.visibility === 'active' })}>Active</a></li>
-        <li><a href='#/completed' className={classNames({ selected: store.visibility === 'completed' })}>Completed</a>
-        </li>
-      </ul>
-      {store.doneCount <= 0 ? ''
-        : <button className='clear-completed' onClick={e => store.clearCompleted()}>Clear completed</button>}
-    </footer>
+    return (
+      <footer className='footer'>
+        <span className='todo-count'>
+          <strong>{pluralize('item', store.leftCount, true)}</strong> left
+        </span>
+        <ul className='filters'>
+          <li><a href='#/all' className={classNames({ selected: store.visibility === 'all' })}>All</a></li>
+          <li><a href='#/active' className={classNames({ selected: store.visibility === 'active' })}>Active</a></li>
+          <li><a href='#/completed' className={classNames({ selected: store.visibility === 'completed' })}>Completed</a>
+          </li>
+        </ul>
+        {store.doneCount <= 0 ? ''
+          : <button className='clear-completed' onClick={e => store.clearCompleted()}>Clear completed</button>}
+      </footer>
+    )
   }
 }
 const Footer = observer(_Footer)

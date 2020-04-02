@@ -5,12 +5,15 @@ class App extends React.Component {
     super(props)
     this.state = { number: 0 }
   }
+
   render () {
-    return <div>
-      <button onClick={e => this.setState({ number: this.state.number - 1 })}>-</button>
-      <span>{this.state.number}</span>
-      <button onClick={e => this.setState({ number: this.state.number + 1 })}>+</button>
-    </div>
+    return (
+      <div>
+        <button onClick={e => this.setState({ number: this.state.number - 1 })}>-</button>
+        <span>{this.state.number}</span>
+        <button onClick={e => this.setState({ number: this.state.number + 1 })}>+</button>
+      </div>
+    )
   }
 }
 

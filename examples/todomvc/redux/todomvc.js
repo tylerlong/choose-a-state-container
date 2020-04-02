@@ -1,6 +1,5 @@
 /* global React, Redux, R, uuid, ReactRedux, ReactDOM, pluralize, classNames, Router, _, Reselect */
 const { Provider } = ReactRedux
-const { Fragment } = React
 
 // selectors
 const todosSelector = state => state.todos
@@ -135,28 +134,34 @@ const setTitle = (id, title) => ({ type: SET_TITLE, id, title })
 class _App extends React.Component {
   render () {
     const { add } = this.props
-    return <Fragment>
-      <section className='todoapp'>
-        <header className='header'>
-          <h1>todos</h1>
-          <input className='new-todo' autoFocus autoComplete='off' onKeyUp={e => {
-            if (e.key === 'Enter') {
-              add(e.target.value)
-              e.target.value = ''
-            }
-          }} placeholder='What needs to be done?' />
-        </header>
-        <Body />
-        <Footer />
-      </section>
-      <footer className='info'>
-        <p>Double-click to edit a todo</p>
-        <p>Written by <a href='https://github.com/tylerlong'>Tyler Long</a></p>
-        <p><a href='https://github.com/tylerlong/choose-a-state-container/tree/master/examples/todomvc/redux'>
-          Source code
-        </a> available</p>
-      </footer>
-    </Fragment>
+    return (
+      <>
+        <section className='todoapp'>
+          <header className='header'>
+            <h1>todos</h1>
+            <input
+              className='new-todo' autoFocus autoComplete='off' onKeyUp={e => {
+                if (e.key === 'Enter') {
+                  add(e.target.value)
+                  e.target.value = ''
+                }
+              }} placeholder='What needs to be done?'
+            />
+          </header>
+          <Body />
+          <Footer />
+        </section>
+        <footer className='info'>
+          <p>Double-click to edit a todo</p>
+          <p>Written by <a href='https://github.com/tylerlong'>Tyler Long</a></p>
+          <p>
+            <a href='https://github.com/tylerlong/choose-a-state-container/tree/master/examples/todomvc/redux'>
+              Source code
+            </a> available
+          </p>
+        </footer>
+      </>
+    )
   }
 }
 const App = ReactRedux.connect(null, { add })(_App)
@@ -168,13 +173,15 @@ class _Body extends React.Component {
     if (length === 0) {
       return ''
     }
-    return <section className='main'>
-      <input id='toggle-all' className='toggle-all' type='checkbox' checked={areAllDone} onChange={e => toggleAll()} />
-      <label htmlFor='toggle-all'>Mark all as complete</label>
-      <ul className='todo-list'>
-        {visibleTodos.map(todo => <TodoItem id={todo.id} key={todo.id} />)}
-      </ul>
-    </section>
+    return (
+      <section className='main'>
+        <input id='toggle-all' className='toggle-all' type='checkbox' checked={areAllDone} onChange={e => toggleAll()} />
+        <label htmlFor='toggle-all'>Mark all as complete</label>
+        <ul className='todo-list'>
+          {visibleTodos.map(todo => <TodoItem id={todo.id} key={todo.id} />)}
+        </ul>
+      </section>
+    )
   }
 }
 const Body = ReactRedux.connect(
@@ -190,27 +197,35 @@ const Body = ReactRedux.connect(
 class _TodoItem extends React.Component {
   render () {
     const { todo, edit, doneEdit, cancelEdit, remove, setTitle, setCompleted } = this.props
-    return <li className={classNames('todo', { completed: todo.completed, editing: todo.cache })}>
-      <div className='view'>
-        <input className='toggle' type='checkbox' checked={todo.completed}
-          onChange={e => setCompleted(todo.id, e.target.checked)} />
-        <label onDoubleClick={e => {
-          edit(todo.id)
-          setTimeout(() => ReactDOM.findDOMNode(this.refs.editField).focus(), 10)
-        }}>{todo.title}</label>
-        <button className='destroy' onClick={e => remove(todo.id)} />
-      </div>
-      <input ref='editField' className='edit' type='text' value={todo.title}
-        onChange={e => setTitle(todo.id, e.target.value)}
-        onKeyUp={e => {
-          if (e.key === 'Enter') {
-            doneEdit(todo.id)
-          } else if (e.key === 'Escape') {
-            cancelEdit(todo.id)
-          }
-        }}
-        onBlur={e => doneEdit(todo.id)} />
-    </li>
+    return (
+      <li className={classNames('todo', { completed: todo.completed, editing: todo.cache })}>
+        <div className='view'>
+          <input
+            className='toggle' type='checkbox' checked={todo.completed}
+            onChange={e => setCompleted(todo.id, e.target.checked)}
+          />
+          <label onDoubleClick={e => {
+            edit(todo.id)
+            setTimeout(() => ReactDOM.findDOMNode(this.refs.editField).focus(), 10)
+          }}
+          >{todo.title}
+          </label>
+          <button className='destroy' onClick={e => remove(todo.id)} />
+        </div>
+        <input
+          ref='editField' className='edit' type='text' value={todo.title}
+          onChange={e => setTitle(todo.id, e.target.value)}
+          onKeyUp={e => {
+            if (e.key === 'Enter') {
+              doneEdit(todo.id)
+            } else if (e.key === 'Escape') {
+              cancelEdit(todo.id)
+            }
+          }}
+          onBlur={e => doneEdit(todo.id)}
+        />
+      </li>
+    )
   }
 }
 const TodoItem = ReactRedux.connect(
@@ -227,18 +242,20 @@ class _Footer extends React.Component {
     if (length === 0) {
       return ''
     }
-    return <footer className='footer'>
-      <span className='todo-count'>
-        <strong>{pluralize('item', leftCount, true)}</strong> left
-      </span>
-      <ul className='filters'>
-        <li><a href='#/all' className={classNames({ selected: visibility === 'all' })}>All</a></li>
-        <li><a href='#/active' className={classNames({ selected: visibility === 'active' })}>Active</a></li>
-        <li><a href='#/completed' className={classNames({ selected: visibility === 'completed' })}>Completed</a></li>
-      </ul>
-      {doneCount <= 0 ? ''
-        : <button className='clear-completed' onClick={e => clearCompleted()}>Clear completed</button>}
-    </footer>
+    return (
+      <footer className='footer'>
+        <span className='todo-count'>
+          <strong>{pluralize('item', leftCount, true)}</strong> left
+        </span>
+        <ul className='filters'>
+          <li><a href='#/all' className={classNames({ selected: visibility === 'all' })}>All</a></li>
+          <li><a href='#/active' className={classNames({ selected: visibility === 'active' })}>Active</a></li>
+          <li><a href='#/completed' className={classNames({ selected: visibility === 'completed' })}>Completed</a></li>
+        </ul>
+        {doneCount <= 0 ? ''
+          : <button className='clear-completed' onClick={e => clearCompleted()}>Clear completed</button>}
+      </footer>
+    )
   }
 }
 const Footer = ReactRedux.connect(

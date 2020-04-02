@@ -27,11 +27,13 @@ const decrease = () => ({ type: DECREMENT })
 class _App extends React.Component {
   render () {
     const { number, increase, decrease } = this.props
-    return <div>
-      <button onClick={e => decrease()}>-</button>
-      <span>{number}</span>
-      <button onClick={e => increase()}>+</button>
-    </div>
+    return (
+      <div>
+        <button onClick={e => decrease()}>-</button>
+        <span>{number}</span>
+        <button onClick={e => increase()}>+</button>
+      </div>
+    )
   }
 }
 const App = ReactRedux.connect(

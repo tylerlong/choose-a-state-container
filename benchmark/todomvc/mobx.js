@@ -30,18 +30,23 @@ class Store {
       return this.todos.filter(todo => todo.completed)
     }
   }
+
   get length () {
     return this.todos.length
   }
+
   get areAllDone () {
     return R.all(todo => todo.completed, this.todos)
   }
+
   get leftCount () {
     return this.todos.filter(todo => !todo.completed).length
   }
+
   get doneCount () {
     return this.todos.filter(todo => todo.completed).length
   }
+
   toggleAll () {
     if (this.areAllDone) {
       R.forEach(todo => { todo.completed = false }, this.todos)
@@ -49,6 +54,7 @@ class Store {
       R.forEach(todo => { todo.completed = true }, this.todos)
     }
   }
+
   add (title) {
     title = title.trim()
     if (title !== '') {
@@ -57,13 +63,16 @@ class Store {
       this.todos.push(todo)
     }
   }
+
   remove (todo) {
     const index = R.findIndex(t => t.id === todo.id, this.todos)
     this.todos.splice(index, 1)
   }
+
   edit (todo) {
     todo.cache = todo.title
   }
+
   doneEdit (todo) {
     todo.cache = undefined
     todo.title = todo.title.trim()
@@ -71,10 +80,12 @@ class Store {
       this.remove(todo)
     }
   }
+
   cancelEdit (todo) {
     todo.title = todo.cache
     todo.cache = undefined
   }
+
   clearCompleted () {
     this.todos = this.todos.filter(todo => !todo.completed)
   }

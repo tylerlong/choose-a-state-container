@@ -14,11 +14,13 @@ const store = mobx.observable.object({
 class _App extends React.Component {
   render () {
     const store = this.props.store
-    return <div>
-      <button onClick={e => store.decrease()}>-</button>
-      <span>{store.number}</span>
-      <button onClick={e => store.increase()}>+</button>
-    </div>
+    return (
+      <div>
+        <button onClick={e => store.decrease()}>-</button>
+        <span>{store.number}</span>
+        <button onClick={e => store.increase()}>+</button>
+      </div>
+    )
   }
 }
 const App = mobxReact.observer(_App)
