@@ -21,6 +21,6 @@ describe('Cache - @nx-js/observer-util', () => {
     calculator.a = 4
     expect(calculator.sum).toBe(6)
     expect(calculator.sum).toBe(6)
-    expect(count).toBe(4) // no cache? it shoudl be 2
+    expect(count).toBe(4) // no cache? it should be 2
   })
 })
