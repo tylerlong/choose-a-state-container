@@ -65,20 +65,23 @@ const todosReducer = (todos = initialState.todos, action) => {
       } else {
         return R.map(R.assoc('completed', true), todos)
       }
-    case ADD:
+    case ADD: {
       const title = action.title.trim()
       if (title !== '') {
         return [...todos, { id: uuid(), title, completed: false }]
       }
       return todos
-    case REMOVE:
+    }
+    case REMOVE: {
       const index = R.findIndex(t => t.id === action.id, todos)
       return R.remove(index, 1, todos)
-    case EDIT:
+    }
+    case EDIT: {
       const index2 = R.findIndex(t => t.id === action.id, todos)
       const todo2 = todos[index2]
       return R.set(R.lensPath([index2]), { ...todo2, cache: todo2.title }, todos)
-    case DONE_EDIT:
+    }
+    case DONE_EDIT: {
       const index3 = R.findIndex(t => t.id === action.id, todos)
       const todo3 = todos[index3]
       if (todo3.title.trim() === '') {
@@ -86,25 +89,29 @@ const todosReducer = (todos = initialState.todos, action) => {
       } else {
         return R.set(R.lensPath([index3]), R.dissoc('cache', todo3), todos)
       }
-    case CANCEL_EDIT:
+    }
+    case CANCEL_EDIT: {
       const index4 = R.findIndex(t => t.id === action.id, todos)
       const todo4 = todos[index4]
       return R.set(R.lensPath([index4]), R.pipe(
         R.assoc('title', todo4.cache),
         R.dissoc('cache')
       )(todo4))(todos)
+    }
     case CLEAR_COMPLETED:
       return R.filter(todo => !todo.completed, todos)
     case SET_TODOS:
       return action.todos
-    case SET_COMPLETED:
+    case SET_COMPLETED: {
       const index5 = R.findIndex(t => t.id === action.id, todos)
       const todo5 = todos[index5]
       return R.set(R.lensPath([index5]), { ...todo5, completed: action.completed }, todos)
-    case SET_TITLE:
+    }
+    case SET_TITLE: {
       const index6 = R.findIndex(t => t.id === action.id, todos)
       const todo6 = todos[index6]
       return R.set(R.lensPath([index6]), { ...todo6, title: action.title }, todos)
+    }
     default:
       return todos
   }
