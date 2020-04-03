@@ -1,8 +1,8 @@
 import SubX from 'subx'
 import * as R from 'ramda'
-import hyperid from 'hyperid'
 
-const uuid = hyperid()
+let id = 0
+const uuid = () => ++id
 
 // model
 const Todo = new SubX({ title: '', completed: false })

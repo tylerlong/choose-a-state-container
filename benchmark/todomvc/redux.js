@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect'
 import * as R from 'ramda'
 import { combineReducers, createStore } from 'redux'
-import hyperid from 'hyperid'
 
-const uuid = hyperid()
+let id = 0
+const uuid = () => ++id
 
 // selectors
 const todosSelector = state => state.todos

@@ -15,7 +15,6 @@
     "@nx-js/observer-util": "^4.2.2",
     "babel-eslint": "^10.1.0",
     "benchmark": "^2.1.4",
-    "hyperid": "^2.0.3",
     "jest": "^25.2.4",
     "mobx": "^5.15.4",
     "ramda": "^0.27.0",
